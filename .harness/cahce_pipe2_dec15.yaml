@@ -1,0 +1,23 @@
+pipeline:
+  name: cahce pipe2 dec15
+  identifier: cahce_pipe2_dec15
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  stages:
+    - stage:
+        name: stage1
+        identifier: stage1
+        template:
+          templateRef: DeolyStage14Dec
+          versionLabel: v1
+          templateInputs:
+            type: Deployment
+            spec:
+              infrastructure:
+                infrastructureDefinition:
+                  type: KubernetesGcp
+                  spec:
+                    connectorRef: <+input>
+                    cluster: <+input>
+                    namespace: <+input>
