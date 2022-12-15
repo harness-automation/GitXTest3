@@ -50,3 +50,9 @@ pipeline:
                       spec:
                         connectorRef: <+input>
                         namespace: <+input>
+        - stage:
+            name: stage3
+            identifier: stage3
+            template:
+              templateRef: StageDeploy12Dec
+              versionLabel: "1"
