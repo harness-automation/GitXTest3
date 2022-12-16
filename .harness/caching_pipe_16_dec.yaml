@@ -6,8 +6,8 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: stage1
-        identifier: stage1
+        name: stage13444
+        identifier: stage13444
         template:
           templateRef: k8sMigration12Dec
           versionLabel: "1"
