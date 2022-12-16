@@ -6,8 +6,8 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: stage13444
-        identifier: stage13444
+        name: stage1
+        identifier: stage1
         template:
           templateRef: k8sMigration12Dec
           versionLabel: "1"
@@ -33,3 +33,23 @@ pipeline:
                   spec:
                     connectorRef: <+input>
                     namespace: <+input>
+    - stage:
+        name: stagge2
+        identifier: stagge2
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Http
+                  name: abc
+                  identifier: abc
+                  spec:
+                    url: <+input>
+                    method: GET
+                    headers: []
+                    outputVariables: []
+                    requestBody: <+input>
+                  timeout: 10s
+        tags: {}
