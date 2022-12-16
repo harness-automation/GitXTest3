@@ -2,7 +2,7 @@ pipeline:
   name: cache pipe2 dec15
   identifier: cahce_pipe2_dec15
   projectIdentifier: AmitTest
-  orgIdentifier: GitXOrg
+  orgIdentifier: default
   tags: {}
   stages:
     - parallel:
