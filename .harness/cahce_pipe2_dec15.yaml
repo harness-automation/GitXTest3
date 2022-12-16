@@ -57,7 +57,7 @@ pipeline:
               templateRef: StageDeploy12Dec
               versionLabel: "1"
     - stage:
-        name: stage4-1
+        name: stage4
         identifier: stage4
         template:
           templateRef: account.Deploy_SecretStore
