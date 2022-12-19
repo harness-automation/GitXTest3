@@ -1,0 +1,55 @@
+template:
+  name: Create Namespace
+  identifier: Create_Namespace
+  type: Step
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      onDelegate: true
+      source:
+        type: Inline
+        spec:
+          script: |
+            set +ex
+
+            PROJECTS="ART|BT|CCM|CDB|CD|CDS|CDP|CHAOS|CI|DEL|DOC|FFM|OENG|OPA|OPS|PIE|PL|PLG|SMP|SPG|SRM|SWAT|SCM|STO|GITOPS|CHI|SSCS"
+
+            NAMESPACE=<+pipeline.variables.Namespace>
+
+            RESERVED="default harness-delegate harness-autostopping harness-delegate-ng harness-delegate-prod ingress-nginx kube-public kube-system nginx-proxy kube-node-lease"
+
+            DEDICATED="pie-pre-prod"
+
+            if [[ $RESERVED =~ (^|[[:space:]])$NAMESPACE($|[[:space:]]) ]]; then
+                echo "Cannot create reserved namespace: $NAMESPACE"
+                exit 1
+            fi
+
+            if [[ $DEDICATED =~ (^|[[:space:]])$NAMESPACE($|[[:space:]]) ]]; then
+                echo "INFO: Dedicated Namespace: $NAMESPACE. Bypassing JIRA Ticket Naming Convention."
+            else
+                ## Following logic will check the namespace name as per the JIRA case.
+                CHECK_VALID_NS=`echo "${NAMESPACE}" | grep -iE "(${PROJECTS})-[0-9]+"`
+                NOT_VALID_MESSAGE="NAMESPACE: ${NAMESPACE} is Not a valid JIRA ticket Case. NAMESPACE should be in a format <JIRAPROJECT-TICKTETNUMBER>. Example BT-2000"
+
+                [ -z ${CHECK_VALID_NS} ] && \
+                echo "ERROR: ${NOT_VALID_MESSAGE}" && exit 1 || \
+                echo "NAMESPACE: ${NAMESPACE} is a valid JIRA ticket Case."
+            fi
+
+            # This will create the namespace only if it doesn't exist thus avoiding the occasional "AlreadyExists" issue
+            kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+
+            # Occasionally, the command still gets an error when creating stdin
+            # This is a race condition where another step in the stage is applying the yaml at the same time anyway
+            # See BT-1828 - MB
+            exit 0
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors:
+        - <+pipeline.variables.Delegate>
+    timeout: 10m
+  versionLabel: 1.0.0
