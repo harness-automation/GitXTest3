@@ -1,0 +1,53 @@
+template:
+  name: Validate Namespace
+  identifier: Validate_Namespace
+  versionLabel: Version1
+  type: Step
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    spec:
+      shell: Bash
+      onDelegate: true
+      source:
+        type: Inline
+        spec:
+          script: |-
+            echo
+
+            GREEN='\033[1;92m'
+            RED='\033[1;91m'
+            NC='\033[0m' # No Color
+
+            reserved="default harness-delegate harness-autostopping harness-delegate-ng harness-delegate-prod ingress-nginx kube-public kube-system nginx-proxy kube-node-lease"
+
+            if [[ $reserved =~ (^|[[:space:]])<+pipeline.variables.Namespace>($|[[:space:]]) ]]; then
+              echo -e "Namespace name ${RED}<+pipeline.variables.Namespace>${NC} is reserved."
+              echo
+              echo "Choose something else." 
+              echo
+              exit 1
+            fi
+
+            if $(echo "<+pipeline.variables.Namespace>" | grep -q '^[0-9]*$'); then
+              echo -e "Namespace name ${RED}<+pipeline.variables.Namespace>${NC} is invalid."
+              echo "Cannot be numbers only"
+              echo
+              exit 1
+            elif $(echo "<+pipeline.variables.Namespace>" | grep -q '^[a-z0-9]\([-a-z0-9]*[a-z0-9]\)\?$'); then
+              echo -e "Namespace name ${GREEN}<+pipeline.variables.Namespace>${NC} is valid"
+              echo
+            else 
+              echo -e "Namespace name ${RED}<+pipeline.variables.Namespace>${NC} is invalid." 
+              echo "Must contain only lowercase letters, numbers, and dashes."
+              echo
+              echo -e 'Must match regex: \033[1m^[a-z0-9]([-a-z0-9]*[a-z0-9])?$\033[0m'
+              echo
+              exit 1
+            fi
+      environmentVariables: []
+      outputVariables: []
+      delegateSelectors:
+        - <+pipeline.variables.Delegate>
+    timeout: 10m
