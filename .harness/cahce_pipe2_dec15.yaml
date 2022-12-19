@@ -51,7 +51,7 @@ pipeline:
                         connectorRef: <+input>
                         namespace: <+input>
         - stage:
-            name: stage3
+            name: stage33
             identifier: stage3
             template:
               templateRef: StageDeploy12Dec
