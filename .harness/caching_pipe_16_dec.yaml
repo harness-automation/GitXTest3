@@ -33,23 +33,3 @@ pipeline:
                   spec:
                     connectorRef: <+input>
                     namespace: <+input>
-    - stage:
-        name: stagge2
-        identifier: stagge2
-        description: ""
-        type: Custom
-        spec:
-          execution:
-            steps:
-              - step:
-                  type: Http
-                  name: abc
-                  identifier: abc
-                  spec:
-                    url: <+input>
-                    method: GET
-                    headers: []
-                    outputVariables: []
-                    requestBody: <+input>
-                  timeout: 10s
-        tags: {}
