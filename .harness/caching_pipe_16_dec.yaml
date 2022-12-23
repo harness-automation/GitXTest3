@@ -33,7 +33,7 @@ pipeline:
                   spec:
                     connectorRef: <+input>
                     namespace: <+input>
-  - stage:
+    - stage:
         name: stage2
         identifier: stage2
         template:
