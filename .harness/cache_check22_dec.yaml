@@ -11,3 +11,9 @@ pipeline:
         template:
           templateRef: nestedStageDemo
           versionLabel: v1
+   - stage:
+        name: stage2
+        identifier: stage2
+        template:
+          templateRef: nestedStageDemo
+          versionLabel: v1
