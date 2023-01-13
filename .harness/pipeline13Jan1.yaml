@@ -1,0 +1,13 @@
+pipeline:
+  name: pipeline13Jan1
+  identifier: pipeline13Jan1
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  stages:
+    - stage:
+        name: stage1
+        identifier: stage1
+        template:
+          templateRef: Jan13Stage2
+          versionLabel: "1"
