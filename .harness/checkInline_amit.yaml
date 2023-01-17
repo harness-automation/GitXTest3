@@ -1,0 +1,52 @@
+pipeline:
+  name: checkInline amit
+  identifier: checkInline_amit
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: ste1
+                  identifier: ste1
+                  template:
+                    templateRef: Jan13Step
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      timeout: <+input>
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
+    - stage:
+        name: sw2
+        identifier: sw2
+        template:
+          templateRef: Jan13Stage2
+          versionLabel: "1"
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: step2
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          timeout: <+input>
+                          spec:
+                            source:
+                              type: Inline
+                              spec:
+                                script: <+input>
