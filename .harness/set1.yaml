@@ -1,0 +1,44 @@
+inputSet:
+  name: set1
+  identifier: set1
+  orgIdentifier: GitXOrg
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: checkInline_amit
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ste1
+                    template:
+                      templateInputs:
+                        type: ShellScript
+                        timeout: 2d
+                        spec:
+                          source:
+                            type: Inline
+                            spec:
+                              script: echo 'amit'
+      - stage:
+          identifier: sw2
+          template:
+            templateInputs:
+              type: Custom
+              spec:
+                execution:
+                  steps:
+                    - step:
+                        identifier: step2
+                        template:
+                          templateInputs:
+                            type: ShellScript
+                            timeout: 4d
+                            spec:
+                              source:
+                                type: Inline
+                                spec:
+                                  script: echo 'share'
