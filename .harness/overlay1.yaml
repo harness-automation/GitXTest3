@@ -1,0 +1,10 @@
+overlayInputSet:
+  name: overlay1
+  identifier: overlay1
+  orgIdentifier: GitXOrg
+  projectIdentifier: AmitTest
+  pipelineIdentifier: checkInline_amit
+  inputSetReferences:
+    - set3
+    - set1
+  tags: {}
