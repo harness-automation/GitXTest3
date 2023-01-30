@@ -1,0 +1,22 @@
+inputSet:
+  identifier: "set345Jan30"
+  name: "set345Jan30"
+  orgIdentifier: "Simlified_Git_sync"
+  projectIdentifier: "SimplifiedGitSync_Do_Not_Delete"
+  pipeline:
+    identifier: "testONPremPipeline"
+    stages:
+    - stage:
+        identifier: "Ser4"
+        type: "Custom"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "ste3"
+                type: "ShellScript"
+                spec:
+                  source:
+                    type: "Inline"
+                    spec:
+                      script: "echo 'hi'"
