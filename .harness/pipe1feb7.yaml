@@ -22,7 +22,7 @@ pipeline:
             infrastructureDefinition:
               type: KubernetesDirect
               spec:
-                connectorRef: <+input>
+                connectorRef: abcd
                 namespace: <+input>
                 releaseName: release-<+INFRA_KEY>
             allowSimultaneousDeployments: false
