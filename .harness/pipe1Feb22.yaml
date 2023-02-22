@@ -4,6 +4,24 @@ pipeline:
   template:
     templateRef: account.pipelineBatch
     versionLabel: "1"
+    templateInputs:
+      stages:
+        - stage:
+            identifier: S1
+            template:
+              templateInputs:
+                type: Custom
+                spec:
+                  execution:
+                    steps:
+                      - step:
+                          identifier: ShellScript_1
+                          type: ShellScript
+                          spec:
+                            source:
+                              type: Inline
+                              spec:
+                                script: <+input>
   tags: {}
   projectIdentifier: AmitTest
   orgIdentifier: default
