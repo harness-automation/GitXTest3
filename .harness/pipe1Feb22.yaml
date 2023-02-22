@@ -1,0 +1,9 @@
+pipeline:
+  name: pipe1Feb22
+  identifier: pipe1Feb22
+  template:
+    templateRef: account.pipelineBatch
+    versionLabel: "1"
+  tags: {}
+  projectIdentifier: AmitTest
+  orgIdentifier: default
