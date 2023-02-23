@@ -1,0 +1,26 @@
+inputSet:
+  name: febset123
+  identifier: febset123
+  orgIdentifier: default
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: pipe1Feb22
+    template:
+      templateInputs:
+        stages:
+          - stage:
+              identifier: S1
+              template:
+                templateInputs:
+                  type: Custom
+                  spec:
+                    execution:
+                      steps:
+                        - step:
+                            identifier: ShellScript_1
+                            type: ShellScript
+                            spec:
+                              source:
+                                type: Inline
+                                spec:
+                                  script: echo 'hi'
