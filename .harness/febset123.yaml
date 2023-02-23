@@ -23,4 +23,4 @@ inputSet:
                               source:
                                 type: Inline
                                 spec:
-                                  script: echo 'hi update 123'
+                                  script: echo 'hi update 123 new branch'
