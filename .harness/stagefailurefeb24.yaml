@@ -30,7 +30,7 @@ pipeline:
                       timeout: 10m
             tags: {}
             when:
-              pipelineStatus: Failure
+              pipelineStatus: Success
         - stage:
             name: S2
             identifier: S2
