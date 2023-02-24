@@ -29,6 +29,8 @@ pipeline:
                         outputVariables: []
                       timeout: 10m
             tags: {}
+            when:
+              pipelineStatus: Failure
         - stage:
             name: S2
             identifier: S2
@@ -52,6 +54,8 @@ pipeline:
                         outputVariables: []
                       timeout: 10m
             tags: {}
+            when:
+              pipelineStatus: Failure
         - stage:
             name: S3
             identifier: S3
@@ -75,6 +79,8 @@ pipeline:
                         outputVariables: []
                       timeout: 10m
             tags: {}
+            when:
+              pipelineStatus: Failure
     - stage:
         name: S4
         identifier: S4
@@ -98,6 +104,8 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+        when:
+          pipelineStatus: Failure
     - stage:
         name: S5
         identifier: S5
@@ -121,3 +129,5 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+        when:
+          pipelineStatus: Failure
