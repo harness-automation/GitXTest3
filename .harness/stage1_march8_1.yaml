@@ -1,0 +1,26 @@
+template:
+  name: stage1 march8
+  identifier: stage1_march8
+  versionLabel: "1"
+  type: Stage
+  projectIdentifier: TestAmit
+  orgIdentifier: Simlified_Git_sync
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - step:
+              name: e1
+              identifier: e1
+              template:
+                templateRef: step1_march8
+                versionLabel: "1"
+                templateInputs:
+                  type: ShellScript
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: <+input>
