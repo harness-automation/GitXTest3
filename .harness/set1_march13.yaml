@@ -1,6 +1,8 @@
 inputSet:
   name: set1 march13
+  tags: {}
   identifier: set1_march13
+  description: different repo default branch
   orgIdentifier: default
   projectIdentifier: AmitTest
   pipeline:
