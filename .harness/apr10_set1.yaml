@@ -1,0 +1,22 @@
+inputSet:
+  name: apr10 set1
+  identifier: apr10_set1
+  orgIdentifier: default
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: pipe_30March
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'
