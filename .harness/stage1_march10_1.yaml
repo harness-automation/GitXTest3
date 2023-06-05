@@ -17,10 +17,3 @@ template:
               template:
                 templateRef: step1_march10
                 versionLabel: "1"
-                templateInputs:
-                  type: ShellScript
-                  spec:
-                    source:
-                      type: Inline
-                      spec:
-                        script: echo 'hi'
