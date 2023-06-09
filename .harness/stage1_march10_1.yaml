@@ -17,3 +17,9 @@ template:
               template:
                 templateRef: step1_march10
                 versionLabel: "1"
+          - step:
+              name: ShellScript_1
+              identifier: ShellScript_1
+              template:
+                templateRef: june_9_step_template
+                versionLabel: v1
