@@ -1,0 +1,19 @@
+template:
+  name: june 9 step template
+  type: Step
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  spec:
+    type: ShellScript
+    timeout: 10m
+    spec:
+      shell: Bash
+      onDelegate: true
+      source:
+        type: Inline
+        spec:
+          script: <+input>
+      environmentVariables: []
+      outputVariables: []
+  identifier: june_9_step_template
+  versionLabel: v1
