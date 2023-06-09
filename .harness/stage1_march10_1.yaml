@@ -22,4 +22,4 @@ template:
               identifier: ShellScript_1
               template:
                 templateRef: june_9_step_template
-                versionLabel: v2
+                versionLabel: v1
