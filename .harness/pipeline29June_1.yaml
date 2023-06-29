@@ -14,18 +14,4 @@ template:
           template:
             templateRef: stageDefault29June
             versionLabel: "1"
-            templateInputs:
-              type: Custom
-              spec:
-                execution:
-                  steps:
-                    - step:
-                        identifier: step1
-                        template:
-                          templateInputs:
-                            type: ShellScript
-                            spec:
-                              source:
-                                type: Inline
-                                spec:
-                                  script: <+input>
+            gitBranch: 29june-1
