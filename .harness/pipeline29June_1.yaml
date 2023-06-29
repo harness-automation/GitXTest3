@@ -1,0 +1,32 @@
+template:
+  name: pipeline29June
+  identifier: pipeline29June
+  versionLabel: "1"
+  type: Pipeline
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  spec:
+    stages:
+      - stage:
+          name: stage1
+          identifier: stage1
+          template:
+            templateRef: stageDefault29June
+            versionLabel: "1"
+            templateInputs:
+              type: Custom
+              spec:
+                execution:
+                  steps:
+                    - step:
+                        identifier: step1
+                        template:
+                          templateInputs:
+                            type: ShellScript
+                            timeout: <+input>
+                            spec:
+                              source:
+                                type: Inline
+                                spec:
+                                  script: <+input>
