@@ -27,4 +27,18 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+              - step:
+                  name: S1
+                  identifier: S1
+                  template:
+                    templateRef: step2_5july
+                    versionLabel: "1"
+                    gitBranch: main-patch
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
         tags: {}
