@@ -1,0 +1,25 @@
+template:
+  name: StageAmit123
+  identifier: StageAmit123
+  versionLabel: "1"
+  type: Stage
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - step:
+              name: S23
+              identifier: S23
+              template:
+                templateRef: account.step1Amit
+                versionLabel: "1"
+                gitBranch: main-patch
+                templateInputs:
+                  type: ShellScript
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: <+input>
