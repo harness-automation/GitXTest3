@@ -72,7 +72,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo 'amit test'
+                        script: echo 'amit 123'
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
