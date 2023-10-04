@@ -1,0 +1,56 @@
+pipeline:
+  name: gitsync pipeline
+  identifier: gitsync_pipeline
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: S1
+        identifier: S1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: step1
+                  identifier: step1
+                  template:
+                    templateRef: testGitSynctemplate
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+              - step:
+                  name: step2
+                  identifier: step2
+                  template:
+                    templateRef: testGitSynctemplate
+                    versionLabel: "2"
+                    gitBranch: main-patch
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+              - step:
+                  name: step3
+                  identifier: step3
+                  template:
+                    templateRef: testGitSynctemplate
+                    versionLabel: "3"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
