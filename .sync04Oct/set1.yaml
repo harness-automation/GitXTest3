@@ -1,0 +1,44 @@
+inputSet:
+  name: set1
+  identifier: set1
+  orgIdentifier: default
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: gitsync_pipeline
+    stages:
+      - stage:
+          identifier: S1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: step1
+                    template:
+                      templateInputs:
+                        type: ShellScript
+                        spec:
+                          source:
+                            type: Inline
+                            spec:
+                              script: echo 'hi'
+                - step:
+                    identifier: step2
+                    template:
+                      templateInputs:
+                        type: ShellScript
+                        spec:
+                          source:
+                            type: Inline
+                            spec:
+                              script: echo 'hi'
+                - step:
+                    identifier: step3
+                    template:
+                      templateInputs:
+                        type: ShellScript
+                        spec:
+                          source:
+                            type: Inline
+                            spec:
+                              script: echo 'hi'
