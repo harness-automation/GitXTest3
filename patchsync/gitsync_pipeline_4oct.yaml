@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo 'amit 123'
+                        script: echo 'amit 123456'
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
