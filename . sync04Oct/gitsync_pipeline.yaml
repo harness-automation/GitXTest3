@@ -33,13 +33,6 @@ pipeline:
                     templateRef: testGitSynctemplate
                     versionLabel: "2"
                     gitBranch: main-patch
-                    templateInputs:
-                      type: ShellScript
-                      spec:
-                        source:
-                          type: Inline
-                          spec:
-                            script: <+input>
               - step:
                   name: step3
                   identifier: step3
