@@ -1,0 +1,29 @@
+pipeline:
+  name: template check git sync 10oct
+  identifier: template_check_git_sync_10oct
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: S1
+        identifier: S1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: step12
+                  identifier: step12
+                  template:
+                    templateRef: steptemp10oct
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
