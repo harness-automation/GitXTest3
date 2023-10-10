@@ -1,0 +1,29 @@
+pipeline:
+  name: template check main branch 10oct
+  identifier: template_check_main_branch_10oct
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: S12
+        identifier: S12
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: s23
+                  identifier: s23
+                  template:
+                    templateRef: stepTemplatemain_branch_10oct
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
