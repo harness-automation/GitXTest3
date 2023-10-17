@@ -33,11 +33,4 @@ pipeline:
                   template:
                     templateRef: step17OCtBranch
                     versionLabel: "1"
-                    templateInputs:
-                      type: ShellScript
-                      spec:
-                        source:
-                          type: Inline
-                          spec:
-                            script: <+input>
         tags: {}
