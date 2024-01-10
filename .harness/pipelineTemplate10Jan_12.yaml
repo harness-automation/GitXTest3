@@ -1,0 +1,33 @@
+template:
+  name: pipelineTemplate10Jan
+  identifier: pipelineTemplate10Jan
+  versionLabel: "12"
+  type: Pipeline
+  projectIdentifier: DoNotDelete_AR7
+  orgIdentifier: default
+  tags: {}
+  spec:
+    stages:
+      - stage:
+          name: S123
+          identifier: S123
+          tags: {}
+          template:
+            templateRef: remoteStage10Jan
+            versionLabel: "1"
+            gitBranch: main
+            templateInputs:
+              type: Custom
+              spec:
+                execution:
+                  steps:
+                    - step:
+                        identifier: S123
+                        template:
+                          templateInputs:
+                            type: ShellScript
+                            spec:
+                              source:
+                                type: Inline
+                                spec:
+                                  script: <+input>
