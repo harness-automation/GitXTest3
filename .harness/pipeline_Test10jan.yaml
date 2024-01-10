@@ -1,0 +1,30 @@
+pipeline:
+  name: pipeline Test10jan
+  identifier: pipeline_Test10jan
+  tags: {}
+  template:
+    templateRef: pipelineTemplate10Jan
+    versionLabel: "12"
+    gitBranch: 19Dec
+    templateInputs:
+      stages:
+        - stage:
+            identifier: S123
+            template:
+              templateInputs:
+                type: Custom
+                spec:
+                  execution:
+                    steps:
+                      - step:
+                          identifier: S123
+                          template:
+                            templateInputs:
+                              type: ShellScript
+                              spec:
+                                source:
+                                  type: Inline
+                                  spec:
+                                    script: <+input>
+  projectIdentifier: DoNotDelete_AR7
+  orgIdentifier: default
