@@ -16,18 +16,3 @@ template:
             templateRef: remoteStage10Jan
             versionLabel: "1"
             gitBranch: main
-            templateInputs:
-              type: Custom
-              spec:
-                execution:
-                  steps:
-                    - step:
-                        identifier: S123
-                        template:
-                          templateInputs:
-                            type: ShellScript
-                            spec:
-                              source:
-                                type: Inline
-                                spec:
-                                  script: <+input>
