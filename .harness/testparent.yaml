@@ -6,25 +6,11 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: S1
-        identifier: S1
+        name: s2
+        identifier: s2
         description: ""
-        type: Custom
+        type: Pipeline
         spec:
-          execution:
-            steps:
-              - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: <+input>
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-        tags: {}
+          org: Pipelines_NonK8s_Org_NG
+          pipeline: testChild
+          project: AmitTest
