@@ -14,3 +14,5 @@ pipeline:
           org: Pipelines_NonK8s_Org_NG
           pipeline: testChlidSSH_MAiN
           project: TestAmit123
+          inputSetReferences:
+            - set8feb
