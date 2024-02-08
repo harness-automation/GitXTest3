@@ -1,0 +1,22 @@
+inputSet:
+  name: set18feb
+  identifier: set18feb
+  orgIdentifier: default
+  projectIdentifier: TestAmit
+  pipeline:
+    identifier: TestChild
+    stages:
+      - stage:
+          identifier: S1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'
