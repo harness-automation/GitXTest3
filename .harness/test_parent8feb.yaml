@@ -1,0 +1,18 @@
+pipeline:
+  name: test parent8feb
+  identifier: test_parent8feb
+  projectIdentifier: TestAmit
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s2
+        identifier: s2
+        description: ""
+        type: Pipeline
+        spec:
+          org: default
+          pipeline: TestChild
+          project: TestAmit
+          inputSetReferences:
+            - set18feb
