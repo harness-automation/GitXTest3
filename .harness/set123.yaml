@@ -1,5 +1,6 @@
 inputSet:
   name: set123
+  tags: {}
   identifier: set123
   orgIdentifier: Pipelines_NonK8s_Org_NG
   projectIdentifier: AmitTest
