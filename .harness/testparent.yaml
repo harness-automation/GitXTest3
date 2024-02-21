@@ -5,15 +5,42 @@ pipeline:
   orgIdentifier: Pipelines_NonK8s_Org_NG
   tags: {}
   stages:
-    - stage:
-        name: s2
-        identifier: s2
-        description: ""
-        type: Pipeline
-        spec:
-          org: Pipelines_NonK8s_Org_NG
-          pipeline: testChild
-          project: AmitTest
-          inputSetReferences:
-            - set1_21Feb
-        tags: {}
+    - parallel:
+        - stage:
+            name: s2
+            identifier: s2
+            description: ""
+            type: Pipeline
+            spec:
+              org: Pipelines_NonK8s_Org_NG
+              pipeline: testChild
+              project: AmitTest
+              inputSetReferences:
+                - set1_21Feb
+            tags: {}
+        - stage:
+            name: s3
+            identifier: s3
+            description: ""
+            type: Pipeline
+            spec:
+              org: Pipelines_NonK8s_Org_NG
+              pipeline: testChild21feb123
+              project: AmitTest
+              inputs:
+                identifier: testChild21feb123
+                stages:
+                  - stage:
+                      identifier: S12
+                      type: Custom
+                      spec:
+                        execution:
+                          steps:
+                            - step:
+                                identifier: ShellScript_1
+                                type: ShellScript
+                                spec:
+                                  source:
+                                    type: Inline
+                                    spec:
+                                      script: <+input>
