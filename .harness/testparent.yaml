@@ -14,3 +14,6 @@ pipeline:
           org: Pipelines_NonK8s_Org_NG
           pipeline: testChild
           project: AmitTest
+          inputSetReferences:
+            - set1_21Feb
+        tags: {}
