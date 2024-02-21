@@ -1,0 +1,22 @@
+inputSet:
+  name: set123feb21
+  identifier: set123feb21
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  projectIdentifier: DoNotDelete_AmitSingh
+  pipeline:
+    identifier: trestChild_21feb
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'
