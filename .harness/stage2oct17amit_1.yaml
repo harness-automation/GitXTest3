@@ -1,6 +1,6 @@
 template:
   name: stage2oct17amit
-  identifier: stage2oct17amit
+  identifier: stage2oct17amit1
   versionLabel: "1"
   type: Stage
   projectIdentifier: AmitTest
