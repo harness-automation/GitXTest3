@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: infraMarch21
+  identifier: infraMarch21
+  orgIdentifier: default
+  projectIdentifier: AmitTest2
+  environmentRef: env21March
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: account.KubernetesAccLvlConnectorForAutomationTest
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
