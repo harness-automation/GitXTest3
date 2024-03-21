@@ -3,3 +3,9 @@ service:
   identifier: TestService123
   orgIdentifier: default
   projectIdentifier: AmitTest
+  serviceDefinition:
+    spec:
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+    type: Kubernetes
