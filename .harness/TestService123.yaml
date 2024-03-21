@@ -8,4 +8,20 @@ service:
       artifacts:
         primary:
           primaryArtifactRef: <+input>
+      manifests:
+        - manifest:
+            identifier: manifest1
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: <+input>
+                  gitFetchType: Branch
+                  paths:
+                    - /abcTest
+                  repoName: <+input>
+                  branch: <+input>
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
     type: Kubernetes
