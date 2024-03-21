@@ -1,0 +1,7 @@
+environment:
+  name: env21March
+  identifier: env21March
+  accountId: 6dPIY0B4S96mB_ivo57p9Q
+  orgIdentifier: default
+  projectIdentifier: AmitTest2
+  type: PreProduction
