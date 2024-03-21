@@ -2,7 +2,7 @@ service:
   name: TestService123
   identifier: TestService123
   orgIdentifier: default
-  projectIdentifier: AmitTest2
+  projectIdentifier: AmitTest
   serviceDefinition:
     spec:
       artifacts:
