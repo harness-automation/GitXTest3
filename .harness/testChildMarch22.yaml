@@ -1,0 +1,26 @@
+pipeline:
+  name: testChildMArch22
+  identifier: testChildMArch22
+  tags: {}
+  template:
+    templateRef: TemplatePipeline21March
+    versionLabel: "1"
+    gitBranch: main-patch
+    templateInputs:
+      stages:
+        - stage:
+            identifier: s1
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: ShellScript_1
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+  projectIdentifier: AmitTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
