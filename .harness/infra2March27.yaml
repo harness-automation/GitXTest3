@@ -8,6 +8,6 @@ infrastructureDefinition:
   type: KubernetesDirect
   spec:
     connectorRef: org.KubernetesConnectorForAutomationTest
-    namespace: default
+    namespace: default123
     releaseName: release-<+INFRA_KEY_SHORT_ID>
   allowSimultaneousDeployments: false
