@@ -2,7 +2,7 @@ infrastructureDefinition:
   name: infraMarch21
   identifier: infraMarch21
   orgIdentifier: Pipelines_NonK8s_Org_NG
-  projectIdentifier: AmitTest
+projectIdentifier: AmitTest
   environmentRef: RemoteEnv20
   deploymentType: Kubernetes
   type: KubernetesDirect
