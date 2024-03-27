@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: infra2March27
+  identifier: infra2March27
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  projectIdentifier: AmitTest
+  environmentRef: RemoteEnv20
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: org.KubernetesConnectorForAutomationTest
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
