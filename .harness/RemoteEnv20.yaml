@@ -1,7 +1,7 @@
 environment:
   name: RemoteEnv20
   identifier: RemoteEnv20
-  accountId: tDP8-8IlSOW9Uz9k-_GTzQ
+accountId: tDP8-8IlSOW9Uz9k-_GTzQ
   orgIdentifier: Pipelines_NonK8s_Org_NG
   projectIdentifier: AmitTest
   type: PreProduction
