@@ -1,0 +1,14 @@
+template:
+  name: githubTemplate06May
+  identifier: githubTemplate06May
+  versionLabel: "1"
+  type: Step
+  tags: {}
+  spec:
+    timeout: 10m
+    type: K8sDelete
+    spec:
+      deleteResources:
+        type: ResourceName
+        spec:
+          resourceNames: <+input>
