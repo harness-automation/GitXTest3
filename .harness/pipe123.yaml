@@ -1,0 +1,31 @@
+pipeline:
+  name: pipe123
+  identifier: pipe123
+  projectIdentifier: test
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - stepGroup:
+                  name: cvcv
+                  identifier: cvcv
+                  template:
+                    templateRef: stepGroupTemplate1
+                    versionLabel: v1
+                    gitBranch: prakhar-demo-1
+                    templateInputs:
+                      steps:
+                        - step:
+                            identifier: shell
+                            template:
+                              templateInputs:
+                                type: ShellScript
+                                timeout: <+input>
+        tags: {}
