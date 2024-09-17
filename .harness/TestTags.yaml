@@ -14,8 +14,7 @@ pipeline:
           execution:
             steps:
               - step:
-                  "":
-                  type: ShellScript
+                  type: ShellScript123
                   name: ShellScript_1
                   identifier: ShellScript_1xcx
                   spec:
