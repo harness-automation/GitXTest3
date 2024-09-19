@@ -1,0 +1,18 @@
+pipeline:
+  name: testParentSSH
+  identifier: testParentSSH
+  projectIdentifier: TestAmit
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: sd
+        identifier: sd
+        description: ""
+        type: Pipeline
+        spec:
+          org: Pipelines_NonK8s_Org_NG
+          pipeline: testChlidSSH_MAiN
+          project: TestAmit123
+          inputSetReferences:
+            - set8feb

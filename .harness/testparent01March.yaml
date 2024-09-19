@@ -1,0 +1,18 @@
+pipeline:
+  name: testparent01March
+  identifier: testparent01March
+  projectIdentifier: AmitTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  stages:
+    - stage:
+        name: s12
+        identifier: s12
+        description: ""
+        type: Pipeline
+        spec:
+          org: Pipelines_NonK8s_Org_NG
+          pipeline: testChild01Mar
+          project: AmitTest
+          inputSetReferences:
+            - inputSetChild01Mar

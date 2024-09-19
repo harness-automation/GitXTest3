@@ -1,0 +1,22 @@
+template:
+  name: step17JanPatch
+  identifier: step17JanPatch
+  versionLabel: "1"
+  type: Step
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  spec:
+    timeout: 10m
+    type: Command
+    spec:
+      onDelegate: false
+      environmentVariables: []
+      outputVariables: []
+      commandUnits:
+        - identifier: a
+          name: a
+          type: Copy
+          spec:
+            sourceType: Artifact
+            destinationPath: <+input>

@@ -1,0 +1,18 @@
+pipeline:
+  name: parentPipeline
+  identifier: parentPipeline
+  projectIdentifier: SimplifiedGitSync_Do_Not_Delete
+  orgIdentifier: Simlified_Git_sync
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Pipeline
+        spec:
+          org: Simlified_Git_sync
+          pipeline: pl_auto_pipeline_8XN7p
+          project: SimplifiedGitSync_Do_Not_Delete
+          inputSetReferences:
+            - setFeb16

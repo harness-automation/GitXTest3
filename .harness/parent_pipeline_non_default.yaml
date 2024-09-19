@@ -1,0 +1,16 @@
+pipeline:
+  name: "parent pipeline non default "
+  identifier: parent_pipeline_non_default
+  projectIdentifier: Test_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Pipeline
+        spec:
+          org: Simlified_Git_sync
+          pipeline: child_non_default_branch_gitxTest3
+          project: SimplifiedGitSync_Do_Not_Delete

@@ -1,0 +1,22 @@
+inputSet:
+  name: same repo same branch
+  identifier: same_repo_same_branch
+  orgIdentifier: Simlified_Git_sync
+  projectIdentifier: TestAmit
+  pipeline:
+    identifier: pipe1_march_8
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'

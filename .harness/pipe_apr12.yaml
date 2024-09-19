@@ -1,0 +1,26 @@
+pipeline:
+  name: pipe apr12
+  identifier: pipe_apr12
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: S2
+        identifier: S1
+        template:
+          templateRef: Template1feb24
+          versionLabel: "1"
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: ShellScript_1
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
