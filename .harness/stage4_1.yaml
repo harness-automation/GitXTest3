@@ -25,3 +25,5 @@ template:
                 environmentVariables: []
                 outputVariables: []
               timeout: 10m
+        strategy:
+          matrix: <+input>
