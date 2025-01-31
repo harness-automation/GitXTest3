@@ -35,7 +35,10 @@ pipeline:
                           variables:
                             - name: var1
                               type: String
-                              value: <+input>.allowedValues(test,test2)
+                              value: "<+input>.allowedValues(test,test2)"
+                            - name: var3
+                              type: String
+                              value: <+input>
                   - insert:
                       identifier: step1
                       steps:
