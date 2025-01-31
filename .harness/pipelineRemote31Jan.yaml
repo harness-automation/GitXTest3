@@ -60,6 +60,6 @@ pipeline:
               - name: var234
                 type: String
                 value: <+input>
-                - name: var2345
+              - name: var2345
                 type: String
                 value: <+input>
