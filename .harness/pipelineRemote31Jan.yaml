@@ -38,7 +38,21 @@ pipeline:
                               value: <+input>.allowedValues(test,test2)
                   - insert:
                       identifier: step1
-                      steps: <+input>
+                      steps:
+                        - step:
+                            type: ShellScript
+                            name: ShellScript_1
+                            identifier: ShellScript_1
+                            spec:
+                              shell: Bash
+                              executionTarget: {}
+                              source:
+                                type: Inline
+                                spec:
+                                  script: <+input>
+                              environmentVariables: []
+                              outputVariables: []
+                            timeout: 10m
             variables:
               - name: var12
                 type: String
