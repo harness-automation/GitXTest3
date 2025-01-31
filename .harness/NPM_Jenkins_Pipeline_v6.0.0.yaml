@@ -1,0 +1,419 @@
+template:
+    identifier: NPM_Jenkins_Pipeline
+    name: NPM Jenkins Pipeline
+    spec:
+        allowStageExecutions: true
+        properties:
+            ci:
+                codebase:
+                    build: <+input>
+                    connectorRef: <+input>
+                    repoName: <+input>
+        stages:
+            - stage:
+                identifier: Pipeline_Validation
+                name: Pipeline Validation
+                template:
+                    templateRef: account.Pipeline_Validation
+            - stage:
+                identifier: Build
+                name: Build
+                template:
+                    templateInputs:
+                        type: CI
+                        variables:
+                            - name: NODE_VERSION
+                              type: String
+                              value: <+pipeline.variables.NODE_VERSION>
+                            - name: PROJECT_ROOT
+                              type: String
+                              value: <+pipeline.variables.PROJECT_ROOT>
+                            - name: EXECUTE_SONAR
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: SONAR_PROJECT_NAME
+                              type: String
+                              value: <+input>.default()
+                            - default: https://sonar.cicd.wdprapps.disney.com
+                              name: SONAR_URL
+                              type: String
+                              value: <+input>.default(https://sonar.cicd.wdprapps.disney.com)
+                            - name: SONAR_TOKEN
+                              type: String
+                              value: <+input>.default(<+secrets.getValue("account.SONAR_TOKEN")>)
+                            - name: GITHUB_TOKEN
+                              type: String
+                              value: <+input>.default(<+secrets.getValue("disneygithubpat")>)
+                            - name: GITHUB_RELEASE
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: SNYK_ORG
+                              type: String
+                              value: <+input>.default(dx-harness-monitoring)
+                            - name: IGNORE_SNYK_FAILURE
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: NEXUS_TOKEN
+                              type: String
+                              value: <+input>.default(<+secrets.getValue("NEXUS_TOKEN")>)
+                            - name: INSTALL_ARGS
+                              type: String
+                              value: <+input>.default()
+                            - name: BUILD_ARGS
+                              type: String
+                              value: <+input>.default()
+                            - name: PIPELINE_TYPE
+                              type: String
+                              value: <+pipeline.variables.PIPELINE_TYPE>
+                            - default: "10"
+                              name: SNYK_DETECTION_DEPTH
+                              type: String
+                              value: <+input>.default(10)
+                    templateRef: account.NPM_Build
+                    versionLabel: v4.2.0
+            - parallel:
+                - stage:
+                    identifier: Package
+                    name: Package Docker
+                    template:
+                        templateInputs:
+                            type: CI
+                            variables:
+                                - name: PUBLISH
+                                  type: String
+                                  value: <+input>.default(false).allowedValues(true,false)
+                                - name: DOCKERFILE
+                                  type: String
+                                  value: <+input>.default(Dockerfile)
+                                - name: PROJECT_ROOT
+                                  type: String
+                                  value: <+pipeline.variables.PROJECT_ROOT>
+                                - name: ECR_REPO_NAME
+                                  type: String
+                                  value: <+input>.regex([a-z0-9-_]+(/[a-z0-9-_]+)+)
+                                - name: IMAGE_TAG
+                                  type: String
+                                  value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                                - name: BUILD_OPTIONS
+                                  type: String
+                                  value: <+input>.default()
+                                - name: REGIONS
+                                  type: String
+                                  value: <+input>.default(us-east-1,us-west-2,eu-west-1)
+                        templateRef: account.Docker_Build_ECR
+                        versionLabel: v4.0.0
+                - stage:
+                    identifier: Publish
+                    name: NPM Publish
+                    template:
+                        templateInputs:
+                            spec:
+                                execution:
+                                    steps:
+                                        - step:
+                                            identifier: NPM_Publish
+                                            template:
+                                                templateInputs:
+                                                    spec:
+                                                        envVariables:
+                                                            NEXUS_TOKEN: <+pipeline.variables.NEXUS_TOKEN>
+                                                    type: Run
+                                        - step:
+                                            identifier: Metrics_Collector
+                                            template:
+                                                templateInputs:
+                                                    spec:
+                                                        envVariables:
+                                                            VERSION_NUMBER: v<+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.version>-<+pipeline.sequenceId>
+                                                    type: Run
+                            type: CI
+                            variables:
+                                - name: PUBLISH
+                                  type: String
+                                  value: <+input>.default(false).allowedValues(true,false)
+                                - name: NODE_VERSION
+                                  type: String
+                                  value: <+pipeline.variables.NODE_VERSION>
+                                - name: PROJECT_ROOT
+                                  type: String
+                                  value: <+pipeline.variables.PROJECT_ROOT>
+                                - name: PUBLISH_DIR
+                                  type: String
+                                  value: <+pipeline.variables.PUBLISH_DIR>
+                        templateRef: account.NPM_Publish
+                        versionLabel: v3.0.0
+                - stage:
+                    identifier: Publish_S3
+                    name: Publish S3
+                    template:
+                        templateInputs:
+                            type: CI
+                            variables:
+                                - name: S3_COPY_CMDS
+                                  type: String
+                                  value: <+input>
+                                - name: PUBLISH
+                                  type: String
+                                  value: <+input>.default(false).allowedValues(true,false)
+                                - name: APP_TYPE
+                                  type: String
+                                  value: nodejs
+                                - name: APP_VERSION
+                                  type: String
+                                  value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                                - name: NODE_VERSION
+                                  type: String
+                                  value: <+pipeline.variables.NODE_VERSION>
+                                - name: JAVA_VERSION
+                                  type: String
+                                  value: java_8
+                                - name: SUB_FOLDER_NAME
+                                  type: String
+                                  value: <+pipeline.variables.PROJECT_ROOT>
+                                - name: FLUTTER_JSON_PATH
+                                  type: String
+                                  value: ""
+                                - name: FLUTTER_VERSION
+                                  type: String
+                                  value: ""
+                        templateRef: account.Publish_S3
+                        versionLabel: v2.0.0
+                - stage:
+                    identifier: LTC
+                    name: Publish LTC
+                    tags: {}
+                    template:
+                        templateInputs:
+                            type: Custom
+                            variables:
+                                - name: RUNDECK_ID
+                                  type: String
+                                  value: NA
+                                - name: VERSION
+                                  type: String
+                                  value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                                - name: ENVIRONMENT
+                                  type: String
+                                  value: NA
+                                - name: APP_TYPE
+                                  type: String
+                                  value: <+pipeline.variables.PIPELINE_TYPE>
+                                - name: RECORD
+                                  type: String
+                                  value: <+<+pipeline.variables.PIPELINE_TYPE>=="library"?true:false>
+                        templateRef: account.LTC_Recording
+                        versionLabel: v1.0.0
+            - stage:
+                identifier: Deploy
+                name: Deploy
+                tags: {}
+                template:
+                    templateInputs:
+                        spec:
+                            execution:
+                                steps:
+                                    - step:
+                                        identifier: Deploy
+                                        template:
+                                            templateInputs:
+                                                spec:
+                                                    envVariables:
+                                                        RUNDECK_ID: <+input>
+                                                type: Container
+                        type: Custom
+                        variables:
+                            - name: PARAMS
+                              type: String
+                              value: <+input>
+                            - name: VERSION
+                              type: String
+                              value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                            - name: ENVIRONMENT
+                              type: String
+                              value: <+input>
+                            - name: REGION
+                              type: String
+                              value: <+input>
+                            - name: SERVICE_NAME
+                              type: String
+                              value: <+input>
+                            - name: SKIP_CANARY
+                              type: String
+                              value: <+input>
+                            - name: FUNCTION
+                              type: String
+                              value: <+input>
+                            - name: ACCOUNT
+                              type: String
+                              value: <+input>
+                            - name: DEPLOY
+                              type: String
+                              value: <+input>.default(false).allowedValues(true,false)
+                    templateRef: account.Rundeck_Deploy
+                    versionLabel: v1.2.11
+            - stage:
+                identifier: AWX_Deploy
+                name: AWX_Deploy
+                tags: {}
+                template:
+                    templateInputs:
+                        type: Custom
+                        variables:
+                            - name: AWX_DEPLOY
+                              type: String
+                              value: <+input>.default(false).allowedValues(true,false)
+                            - name: PARAMS
+                              type: String
+                              value: <+input>
+                            - name: TEMPLATE_ID
+                              type: String
+                              value: <+input>
+                            - name: ENVIRONMENT
+                              type: String
+                              value: <+input>
+                            - name: VERSION
+                              type: String
+                              value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                    templateRef: account.AWX_Deploy_Stage
+                    versionLabel: v1.0.1
+            - stage:
+                identifier: LTC_Record
+                name: LTC Recording
+                tags: {}
+                template:
+                    templateInputs:
+                        type: Custom
+                        variables:
+                            - name: RUNDECK_ID
+                              type: String
+                              value: <+json.list("$.*.ContainerStep.outcome.output.outputVariables.RUNDECK_ID",<+json.format(<+pipeline.stages.Deploy.spec.execution.steps.Deploy>)>)[0]>
+                            - name: VERSION
+                              type: String
+                              value: <+pipeline.stages.Build.spec.execution.steps.Build.steps.NPM_PreBuild.steps.Versioning.output.outputVariables.full_version>
+                            - name: ENVIRONMENT
+                              type: String
+                              value: <+json.list("$.*.ContainerStep.outcome.output.outputVariables.ENVIRONMENT",<+json.format(<+pipeline.stages.Deploy.spec.execution.steps.Deploy>)>)[0]>
+                            - name: APP_TYPE
+                              type: String
+                              value: <+pipeline.variables.PIPELINE_TYPE>
+                            - name: RECORD
+                              type: String
+                              value: <+pipeline.stages.Deploy.status>=="SUCCEEDED"?true:false
+                    templateRef: account.LTC_Recording
+                    versionLabel: v1.0.0
+            - stage:
+                identifier: Clean_Up
+                name: Clean Up
+                template:
+                    templateRef: account.Mandatory_PostBuild
+                    versionLabel: v2.0.0
+            - stage:
+                identifier: Send_Notifications
+                name: Send Notifications
+                template:
+                    templateInputs:
+                        spec:
+                            execution:
+                                steps:
+                                    - stepGroup:
+                                        identifier: Send_Notifications
+                                        template:
+                                            templateInputs:
+                                                steps:
+                                                    - parallel:
+                                                        - step:
+                                                            identifier: Send_Slack
+                                                            template:
+                                                                templateInputs:
+                                                                    spec:
+                                                                        environmentVariables:
+                                                                            - name: slackChannel
+                                                                              type: String
+                                                                              value: <+input>
+                                                                    type: ShellScript
+                                                        - step:
+                                                            identifier: Send_Teams
+                                                            template:
+                                                                templateInputs:
+                                                                    spec:
+                                                                        environmentVariables:
+                                                                            - name: teamsWebhooks
+                                                                              type: String
+                                                                              value: <+input>
+                                                                    type: ShellScript
+                        type: Custom
+                        variables:
+                            - name: Email_Notification_flag
+                              type: String
+                              value: <+input>.default(false).allowedValues(true,false)
+                            - name: Email_To
+                              type: String
+                              value: <+input>
+                            - name: Email_CC
+                              type: String
+                              value: <+input>
+                            - name: Email_Subject
+                              type: String
+                              value: <+input>
+                            - name: Email_Body
+                              type: String
+                              value: <+input>
+                            - name: NOTIFY_FAILED
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: NOTIFY_SUCCEEDED
+                              type: String
+                              value: <+input>.default(false).allowedValues(true,false)
+                            - name: NOTIFY_BACK_TO_NORMAL
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: NOTIFY_IGNORE_FAILED
+                              type: String
+                              value: <+input>.default(false).allowedValues(true,false)
+                            - name: NOTIFY_ABORTED
+                              type: String
+                              value: <+input>.default(true).allowedValues(true,false)
+                            - name: BUILD_STATUS
+                              type: String
+                              value: <+pipeline.stages.Build.status> <+pipeline.stages.Package.status> <+pipeline.stages.Publish.status> <+pipeline.stages.Publish_S3.status> <+pipeline.stages.Deploy.status> <+pipeline.stages.Clean_Up.status>
+                    templateRef: account.notificationsstagetemplate
+                    versionLabel: v3.0.0
+        variables:
+            - description: Must be valid in SNOW. Will be validated in the pipeline
+              name: BAPP_ID
+              required: true
+              type: String
+              value: <+input>
+            - description: Takes any valid version that nvm can use
+              name: NODE_VERSION
+              required: false
+              type: String
+              value: <+input>.default(20)
+            - description: 'Use this variable if your code is not directly under the github repo folder. Give the folder path where your code is. Do not include the repo name. Ex: if your code is in <github-base>/<repo-name>/<folder-1>/<folder-2>/<code files start here> Then you must use <folder-1>/<folder-2>'
+              name: PROJECT_ROOT
+              required: false
+              type: String
+              value: <+input>.default(.)
+            - description: Name of the app. Used for the metrics reporter.
+              name: APP_NAME
+              required: false
+              type: String
+              value: <+input>
+            - description: Used for pulling from npm on Nexus and publishing npm packages
+              name: NEXUS_TOKEN
+              required: true
+              type: String
+              value: <+input>
+            - description: Values could be library or application
+              name: PIPELINE_TYPE
+              required: true
+              type: String
+              value: <+input>.default(application).allowedValues(application,library)
+            - description: ""
+              name: PUBLISH_DIR
+              required: false
+              type: String
+              value: <+input>.default()
+    tags: {}
+    type: Pipeline
+    versionLabel: v6.0.0
