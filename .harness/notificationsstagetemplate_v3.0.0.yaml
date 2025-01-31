@@ -1,0 +1,103 @@
+template:
+    identifier: notificationsstagetemplate
+    name: notifications-stage-template
+    spec:
+        delegateSelectors:
+            - canary
+        spec:
+            execution:
+                steps:
+                    - stepGroup:
+                        identifier: Send_Notifications
+                        name: Send Notifications
+                        template:
+                            gitBranch: main
+                            templateInputs:
+                                steps:
+                                    - parallel:
+                                        - step:
+                                            identifier: Send_Slack
+                                            template:
+                                                templateInputs:
+                                                    spec:
+                                                        environmentVariables:
+                                                            - name: slackChannel
+                                                              type: String
+                                                              value: <+input>
+                                                    type: ShellScript
+                                        - step:
+                                            identifier: Send_Teams
+                                            template:
+                                                templateInputs:
+                                                    spec:
+                                                        environmentVariables:
+                                                            - name: teamsWebhooks
+                                                              type: String
+                                                              value: <+input>
+                                                    type: ShellScript
+                            templateRef: account.notificationsstepgrouptemplate
+                            versionLabel: v3.0.0
+        type: Custom
+        variables:
+            - description: |-
+                Set this as true to enable Email notification, also enter Email_To, Email_CC(optional), Email_Subject, Email_Body.
+                Set false to skip the Email notification.
+              name: Email_Notification_flag
+              required: true
+              type: String
+              value: <+input>.default(false).allowedValues(true,false)
+            - description: Comma separated list of emails to send to. Required if Email_Notification_flag is true
+              name: Email_To
+              required: false
+              type: String
+              value: <+input>
+            - description: Comma separated list of emails to cc to
+              name: Email_CC
+              required: false
+              type: String
+              value: <+input>
+            - description: Subject line of email. Required if Email_Notification_flag is true
+              name: Email_Subject
+              required: false
+              type: String
+              value: <+input>
+            - description: Body of the email to send. Required if Email_Notification_flag is true
+              name: Email_Body
+              required: false
+              type: String
+              value: <+input>
+            - description: Notify all failures
+              name: NOTIFY_FAILED
+              required: false
+              type: String
+              value: <+input>.default(true).allowedValues(true,false)
+            - description: Notify all successes
+              name: NOTIFY_SUCCEEDED
+              required: false
+              type: String
+              value: <+input>.default(false).allowedValues(true,false)
+            - description: Notify back to normal
+              name: NOTIFY_BACK_TO_NORMAL
+              required: false
+              type: String
+              value: <+input>.default(true).allowedValues(true,false)
+            - description: Notify all ignored failures
+              name: NOTIFY_IGNORE_FAILED
+              required: false
+              type: String
+              value: <+input>.default(false).allowedValues(true,false)
+            - description: Notify all aborts
+              name: NOTIFY_ABORTED
+              required: false
+              type: String
+              value: <+input>.default(true).allowedValues(true,false)
+            - description: Space separated list of stage statuses to check for notifications
+              name: BUILD_STATUS
+              required: false
+              type: String
+              value: <+input>
+        when:
+            pipelineStatus: All
+    tags: {}
+    type: Stage
+    versionLabel: v3.0.0
