@@ -1,0 +1,48 @@
+pipeline:
+  name: pipelineRemote31Jan
+  identifier: pipelineRemote31Jan
+  projectIdentifier: donotdeleteflexiTemplate
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  stages:
+    - stage:
+        name: s234
+        identifier: s234
+        tags: {}
+        template:
+          templateRef: stageRemoteTemplate1
+          versionLabel: v123
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - stepGroup:
+                      identifier: sg1
+                      template:
+                        templateInputs:
+                          steps:
+                            - step:
+                                identifier: s234
+                                template:
+                                  templateInputs:
+                                    type: ShellScript
+                                    spec:
+                                      source:
+                                        type: Inline
+                                        spec:
+                                          script: <+input>
+                          variables:
+                            - name: var1
+                              type: String
+                              value: <+input>.allowedValues(test,test2)
+                  - insert:
+                      identifier: step1
+                      steps: <+input>
+            variables:
+              - name: var12
+                type: String
+                value: <+input>
+              - name: var234
+                type: String
+                value: <+input>
