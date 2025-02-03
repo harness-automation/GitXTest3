@@ -39,6 +39,9 @@ template:
                     - name: var3
                       type: String
                       value: <+input>
+                    - name: var4
+                      type: String
+                      value: <+input>
           - insert:
               name: step1
               identifier: step1
