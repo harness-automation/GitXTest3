@@ -33,9 +33,6 @@ template:
                     - name: var1
                       type: String
                       value: "<+input>.allowedValues(test,test2)"
-                    - name: var32
-                      type: String
-                      value: tert456
                     - name: var3
                       type: String
                       value: <+input>
