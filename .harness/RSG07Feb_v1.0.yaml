@@ -1,0 +1,47 @@
+template:
+  name: RSG-07Feb
+  identifier: RSG07Feb
+  versionLabel: v1.0
+  type: StepGroup
+  projectIdentifier: AmitTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  spec:
+    stageType: Custom
+    steps:
+      - step:
+          type: ShellScript
+          name: ShellScript_1
+          identifier: ShellScript_1
+          spec:
+            shell: Bash
+            executionTarget: {}
+            source:
+              type: Inline
+              spec:
+                script: <+input>
+            environmentVariables: []
+            outputVariables: []
+          timeout: 10m
+    variables:
+      - name: RSG_var1
+        type: String
+        value: <+input>
+        description: ""
+        required: false
+      - name: RSG_var2
+        type: String
+        value: <+stage.variables.stage_var1>
+        description: ""
+        required: true
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: ManualIntervention
+            spec:
+              timeout: 2m
+              onTimeout:
+                action:
+                  type: Ignore
