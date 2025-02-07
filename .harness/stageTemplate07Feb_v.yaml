@@ -1,0 +1,64 @@
+template:
+  name: stageTemplate-07Feb
+  identifier: stageTemplate07Feb
+  versionLabel: v
+  type: Stage
+  projectIdentifier: AmitTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - parallel:
+              - stepGroup:
+                  name: RSG-07Feb
+                  identifier: RSG07Feb
+                  template:
+                    templateRef: RSG07Feb
+                    versionLabel: v1.0
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: ManualIntervention
+                          spec:
+                            timeout: 2m
+                            onTimeout:
+                              action:
+                                type: Ignore
+                  variables:
+                    - name: RSG_var1
+                      type: String
+                      value: <+input>
+                      description: ""
+                      required: false
+                    - name: RSG_var2
+                      type: String
+                      value: <+stage.variables.stage_var1>
+                      description: ""
+                      required: true
+              - step:
+                  name: step-1
+                  identifier: step1
+                  template:
+                    templateRef: step07Feb
+                    versionLabel: v1
+                    gitBranch: main
+          - insert:
+              name: insert1
+              identifier: insert1
+              steps: <+input>
+    variables:
+      - name: stage_var1
+        type: String
+        description: ""
+        required: true
+        value: test1
+      - name: stage_var2
+        type: String
+        description: ""
+        required: false
+        value: <+input>
