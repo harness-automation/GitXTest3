@@ -23,6 +23,13 @@ template:
             environmentVariables: []
             outputVariables: []
           timeout: 10m
+      - step:
+          name: stepTemplate
+          identifier: stepTemplate
+          template:
+            templateRef: step07Feb
+            versionLabel: v1
+            gitBranch: main
     variables:
       - name: RSG_var1
         type: String
