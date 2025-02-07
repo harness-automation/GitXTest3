@@ -17,3 +17,23 @@ template:
               template:
                 templateRef: step07Feb
                 versionLabel: v1
+          - stepGroup:
+              name: rsg1
+              identifier: rsg1
+              template:
+                templateRef: RSG07Feb
+                versionLabel: v1.0
+                templateInputs:
+                  steps:
+                    - step:
+                        identifier: ShellScript_1
+                        type: ShellScript
+                        spec:
+                          source:
+                            type: Inline
+                            spec:
+                              script: <+input>
+                  variables:
+                    - name: RSG_var1
+                      type: String
+                      value: <+input>
