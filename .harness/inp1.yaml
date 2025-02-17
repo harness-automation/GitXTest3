@@ -1,0 +1,22 @@
+inputSet:
+  name: inp1
+  identifier: inp1
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: tesst
+    stages:
+      - stage:
+          identifier: tessstt
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echi
