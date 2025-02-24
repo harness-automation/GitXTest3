@@ -1,0 +1,51 @@
+template:
+  name: fdeploy
+  identifier: fdeploy
+  versionLabel: "1"
+  type: Stage
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Deployment
+    spec:
+      deploymentType: Kubernetes
+      environment:
+        environmentRef: env1
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: infra1
+      service:
+        serviceRef: service1
+      execution:
+        steps:
+          - parallel:
+              - insert:
+                  name: inser11
+                  identifier: inser11
+                  steps: <+input>
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo hey
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+          - insert:
+              name: ins23
+              identifier: ins23
+              steps: <+input>
+        rollbackSteps: []
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: StageRollback
