@@ -21,3 +21,17 @@ template:
           template:
             templateRef: fstep1
             versionLabel: "1"
+            templateInputs:
+              type: ShellScript
+              spec:
+                environmentVariables:
+                  - name: qw
+                    type: String
+                    value: <+input>
+                outputVariables:
+                  - name: vr
+                    type: String
+                    value: <+input>
+                  - name: fsdfsf
+                    type: String
+                    value: <+input>
