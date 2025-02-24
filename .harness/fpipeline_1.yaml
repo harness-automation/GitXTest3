@@ -1,0 +1,37 @@
+template:
+  name: fpipeline
+  identifier: fpipeline
+  versionLabel: "1"
+  type: Pipeline
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  spec:
+    stages:
+      - insert:
+          name: ins233
+          identifier: ins233
+          stages: <+input>
+      - stage:
+          name: cus1
+          identifier: cus1
+          description: ""
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    type: ShellScript
+                    name: ShellScript_1
+                    identifier: ShellScript_1
+                    spec:
+                      shell: Bash
+                      executionTarget: {}
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo hey
+                      environmentVariables: []
+                      outputVariables: []
+                    timeout: 10m
+          tags: {}
