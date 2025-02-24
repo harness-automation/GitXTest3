@@ -1,0 +1,23 @@
+template:
+  name: fstepgroup1
+  identifier: fstepgroup1
+  versionLabel: "1"
+  type: StepGroup
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  spec:
+    stageType: Deployment
+    steps:
+      - step:
+          type: Wait
+          name: Wait_1
+          identifier: Wait_1
+          spec:
+            duration: 10s
+      - step:
+          name: std2
+          identifier: std2
+          template:
+            templateRef: fstep1
+            versionLabel: "1"
