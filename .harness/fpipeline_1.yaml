@@ -35,3 +35,22 @@ template:
                       outputVariables: []
                     timeout: 10m
           tags: {}
+      - stage:
+          name: vds
+          identifier: vds
+          tags: {}
+          template:
+            templateRef: fdeploy
+            versionLabel: "1"
+            templateInputs:
+              type: Deployment
+              spec:
+                execution:
+                  steps:
+                    - parallel:
+                        - insert:
+                            identifier: inser11
+                            steps: <+input>
+                    - insert:
+                        identifier: ins23
+                        steps: <+input>
