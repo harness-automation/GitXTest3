@@ -42,6 +42,12 @@ template:
               name: ins23
               identifier: ins23
               steps: <+input>
+          - stepGroup:
+              name: htr
+              identifier: htr
+              template:
+                templateRef: fstepgroup1
+                versionLabel: "1"
         rollbackSteps: []
     failureStrategies:
       - onFailure:
