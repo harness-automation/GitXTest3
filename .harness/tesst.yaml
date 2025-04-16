@@ -5,7 +5,6 @@ pipeline:
   orgIdentifier: Pipelines_NonK8s_Org_NG
   tags: {}
   stages:
-    - stage:
         name: tessstt
         identifier: tessstt
         description: ""
