@@ -24,4 +24,10 @@ template:
                     script: <+input>
                 environmentVariables: []
                 outputVariables: []
-              timeout: 10m
+              timeout: 1h 50m
+          - step:
+              type: Wait
+              name: Wait_1
+              identifier: Wait_1
+              spec:
+                duration: 10m
