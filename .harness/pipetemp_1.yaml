@@ -57,3 +57,14 @@ template:
               description: ""
               required: false
               value: <+input>
+            - name: var6
+              type: String
+              description: ""
+              required: false
+              value: <+input>
+    variables:
+      - name: var7
+        type: String
+        description: ""
+        required: false
+        value: <+input>
