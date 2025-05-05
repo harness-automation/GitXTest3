@@ -17,7 +17,7 @@ template:
       instanceAttributes:
         - name: instancename
           jsonPath: aws_account
-          description: The account that the cdk artifact will be deployed to
+          description: The account that the cdk artifact will be deployed txxo
         - name: instanceregion
           jsonPath: aws_region
           description: The region that the cdk artifact will be deployed to
