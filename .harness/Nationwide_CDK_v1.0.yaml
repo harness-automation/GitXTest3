@@ -1,0 +1,26 @@
+template:
+  name: Nationwide CDK
+  identifier: Nationwide_CDK
+  versionLabel: v1.0
+  type: CustomDeployment
+  description: A Nationwide developed deployment template for deploying cdk artifacts to AWS
+  tags: {}
+  spec:
+    infrastructure:
+      variables: []
+      fetchInstancesScript:
+        store:
+          type: Inline
+          spec:
+            content: |
+              echo '{ "items": [ { "aws_account": "'<+stage.variables.aws_account_name>'", "aws_region": "'<+stage.variables.aws_default_region>'" } ]}' | jq . > $INSTANCE_OUTPUT_PATH
+      instanceAttributes:
+        - name: instancename
+          jsonPath: aws_account
+          description: The account that the cdk artifact will be deployed to
+        - name: instanceregion
+          jsonPath: aws_region
+          description: The region that the cdk artifact will be deployed to
+      instancesListPath: items
+    execution:
+      stepTemplateRefs: []
