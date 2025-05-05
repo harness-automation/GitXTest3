@@ -13,7 +13,7 @@ template:
           type: Inline
           spec:
             content: |
-              echo '{ "items": [ { "aws_account": "'<+stage.variables.aws_account_name>'", "aws_region": "'<+stage.variables.aws_default_region>'" } ]}' | jq . > $INSTANCE_OUTPUT_PATH
+              echo '{ "items": [ { "aws_accoun111": "'<+stage.variables.aws_account_name>'", "aws_region": "'<+stage.variables.aws_default_region>'" } ]}' | jq . > $INSTANCE_OUTPUT_PATH
       instanceAttributes:
         - name: instancename
           jsonPath: aws_account
